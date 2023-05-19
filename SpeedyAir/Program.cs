@@ -1,53 +1,102 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 
-public class Flight
+namespace SpeedyAir
 {
-    public int FlightNumber { get; set; }
-    public string DepartureCity { get; set; }
-    public string ArrivalCity { get; set; }
-    public int Day { get; set; }
-}
 
-public class FlightSchedule
-{
-    private List<Flight> flights;
-
-    public FlightSchedule()
+    public class Order
     {
-        flights = new List<Flight>();
+        public string Destination { get; set; }
     }
 
-    public void AddFlight(Flight flight)
+    public class Flight
     {
-        flights.Add(flight);
+        public int FlightNumber { get; set; }
+        public string DepartureCity { get; set; }
+        public string ArrivalCity { get; set; }
+        public int Day { get; set; }
     }
 
-    public void ListFlightSchedule()
+    public class FlightSchedule
     {
-        foreach (var flight in flights)
+        private List<Flight> flights;
+        private Dictionary<string, Flight> scheduledOrders;
+
+        public FlightSchedule()
         {
-            Console.WriteLine($"Flight: {flight.FlightNumber}, departure: {flight.DepartureCity}, arrival: {flight.ArrivalCity}, day: {flight.Day}");
+            flights = new List<Flight>();
+            scheduledOrders = new Dictionary<string, Flight>();
+        }
+
+        public void AddFlight(Flight flight)
+        {
+            flights.Add(flight);
+        }
+
+        public void ScheduleOrders(Dictionary<string, Order> orders)
+        {
+            foreach (var order in orders)
+            {
+                var flight = FindAvailableFlight(order.Value.Destination);
+                if (flight != null)
+                {
+                    scheduledOrders.Add(order.Key, flight);
+                }
+                else
+                {
+                    Console.WriteLine($"order: {order.Key}, flightNumber: not scheduled");
+                }
+            }
+        }
+
+        public void ListFlightSchedule()
+        {
+            foreach (var order in scheduledOrders)
+            {
+                Console.WriteLine($"order: {order.Key}, flightNumber: {order.Value.FlightNumber}, departure: {order.Value.DepartureCity}, arrival: {order.Value.ArrivalCity}, day: {order.Value.Day}");
+            }
+        }
+
+        private Flight FindAvailableFlight(string destination)
+        {
+            foreach (var flight in flights)
+            {
+                if (flight.ArrivalCity == destination && !scheduledOrders.ContainsValue(flight))
+                {
+                    return flight;
+                }
+            }
+            return null;
         }
     }
-}
 
-public class Program
-{
-    public static void Main(string[] args)
+    internal class Program
     {
-        FlightSchedule flightSchedule = new FlightSchedule();
+        static void Main(string[] args)
+        {
+            FlightSchedule flightSchedule = new FlightSchedule();
 
-        // Load the flight schedule
-        flightSchedule.AddFlight(new Flight { FlightNumber = 1, DepartureCity = "YUL", ArrivalCity = "YYZ", Day = 1 });
-        flightSchedule.AddFlight(new Flight { FlightNumber = 2, DepartureCity = "YUL", ArrivalCity = "YYC", Day = 1 });
-        flightSchedule.AddFlight(new Flight { FlightNumber = 3, DepartureCity = "YUL", ArrivalCity = "YVR", Day = 1 });
-        flightSchedule.AddFlight(new Flight { FlightNumber = 4, DepartureCity = "YUL", ArrivalCity = "YYZ", Day = 2 });
-        flightSchedule.AddFlight(new Flight { FlightNumber = 5, DepartureCity = "YUL", ArrivalCity = "YYC", Day = 2 });
-        flightSchedule.AddFlight(new Flight { FlightNumber = 6, DepartureCity = "YUL", ArrivalCity = "YVR", Day = 2 });
+            // Load the flight schedule
+            flightSchedule.AddFlight(new Flight { FlightNumber = 1, DepartureCity = "YUL", ArrivalCity = "YYZ", Day = 1 });
+            flightSchedule.AddFlight(new Flight { FlightNumber = 2, DepartureCity = "YUL", ArrivalCity = "YYC", Day = 1 });
+            flightSchedule.AddFlight(new Flight { FlightNumber = 3, DepartureCity = "YUL", ArrivalCity = "YVR", Day = 1 });
+            flightSchedule.AddFlight(new Flight { FlightNumber = 4, DepartureCity = "YUL", ArrivalCity = "YYZ", Day = 2 });
+            flightSchedule.AddFlight(new Flight { FlightNumber = 5, DepartureCity = "YUL", ArrivalCity = "YYC", Day = 2 });
+            flightSchedule.AddFlight(new Flight { FlightNumber = 6, DepartureCity = "YUL", ArrivalCity = "YVR", Day = 2 });
 
-        // List the loaded flight schedule
-        flightSchedule.ListFlightSchedule();
+            // Load the orders from the JSON file
+            string json = File.ReadAllText("coding-assigment-orders.json");
+            var orders = JsonConvert.DeserializeObject<Dictionary<string, Order>>(json);
+
+            // Schedule the orders on the flights
+            flightSchedule.ScheduleOrders(orders);
+
+            // List the scheduled flight itineraries
+            flightSchedule.ListFlightSchedule();
+
+        }
     }
 }
 
