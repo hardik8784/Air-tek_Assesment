@@ -1,0 +1,17 @@
+H:\Air-tek_Assesment\SpeedyAir\bin\Debug\net6.0\SpeedyAir.exe
+H:\Air-tek_Assesment\SpeedyAir\bin\Debug\net6.0\SpeedyAir.deps.json
+H:\Air-tek_Assesment\SpeedyAir\bin\Debug\net6.0\SpeedyAir.runtimeconfig.json
+H:\Air-tek_Assesment\SpeedyAir\bin\Debug\net6.0\SpeedyAir.dll
+H:\Air-tek_Assesment\SpeedyAir\bin\Debug\net6.0\SpeedyAir.pdb
+H:\Air-tek_Assesment\SpeedyAir\bin\Debug\net6.0\Newtonsoft.Json.dll
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.csproj.AssemblyReference.cache
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.GeneratedMSBuildEditorConfig.editorconfig
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.AssemblyInfoInputs.cache
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.AssemblyInfo.cs
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.csproj.CoreCompileInputs.cache
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.csproj.CopyComplete
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.dll
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\refint\SpeedyAir.dll
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.pdb
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\SpeedyAir.genruntimeconfig.cache
+H:\Air-tek_Assesment\SpeedyAir\obj\Debug\net6.0\ref\SpeedyAir.dll
